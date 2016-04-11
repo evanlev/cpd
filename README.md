@@ -6,7 +6,7 @@ published in Magnetic Resonance in Medicine. This is research done at
 Stanford University. We do not guarantee that the code is error-free. 
 Please contact the author if you find any bugs or have any suggestions
 or thoughts.
-(c) Evan Levine (egl@stanford.edu) 2016.
+Evan Levine (egl@stanford.edu) 2016.
 =======================================================================
 
 src includes C code and mex functions. Use genUDCPD.m and genVDCPD.m from MATLAB.
