@@ -32,9 +32,11 @@ void genVDCPD(const long dims[], int *pattern,
     debug_printf("Region skip:\t%d\n", skip_reg);
     debug_printf("---------------------------------------- \n");
     
-    /* Clear out the pattern */
-    memset(pattern, 0, f_size*dims[T_DIM]);
     long f_size = dims[0]*dims[1];
+    
+    /* Clear out the pattern */
+    memset(pattern, 0, sizeof(long)*f_size*dims[T_DIM]);
+    
     double alpha_sq = pow( (double) dims[Y_DIM] / (double) dims[Z_DIM], 2);
     int *is_sampled = (int *) xmalloc(dims[Y_DIM]*dims[Z_DIM]*sizeof(int));
     double * kr = (double *) xmalloc(dims[Y_DIM]*dims[Z_DIM]*sizeof(double));
