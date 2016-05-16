@@ -325,7 +325,7 @@ void genUDCPD(const long *dims,
     debug_printf("\n-----------------------------------------------\n");
     struct samplingConstraints *constraints = init_constraints(maxSamplesPerPhase, maxTotalSamples, feasiblePoints);
     constraints->dist = init_dst(shapeOpt, FOVRatio);
-    constraints->dist->dky_min = 100*mindist_scale*sqrt(MIN( (0.5f*FOVRatio) / maxSamplesPerPhase[0], MIN(9*pow(FOVRatio,3), 9.0f ) ));
+    constraints->dist->dky_min = 100*(mindist_scale+0.001)*sqrt(MIN( (0.5f*FOVRatio) / maxSamplesPerPhase[0], MIN(9*pow(FOVRatio,3), 9.0f ) ));
     constraints->dist->dt_min  = C*constraints->dist->dky_min;
 
 

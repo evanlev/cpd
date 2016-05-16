@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Complementary Poisson-Disc Sampling</title><meta name="generator" content="MATLAB 8.0"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2016-04-01"><meta name="DC.source" content="demoCPDAll.m"><style type="text/css">
+      --><title>Complementary Poisson-Disc Sampling</title><meta name="generator" content="MATLAB 8.0"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2016-05-15"><meta name="DC.source" content="demoCPDAll.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -81,6 +81,7 @@ Areg = zpad(removeCorners(ones(24,24)), [ny nz]);
 <span class="comment">% Annular region with 2x1 regular under-sampling</span>
 F = removeCorners(ones(ny, nz) - Areg);
 F(1:2:end,:) = 0;
+</pre><pre class="codeoutput">Warning: Name is nonexistent or not a directory: utils 
 </pre><h2>Example 1: Variable density CPD sampling by region-wise UD-CPD<a name="5"></a></h2><pre class="codeinput">Ry = sqrt(ny*nz / sum(sum(F/nt)));
 Rz = Ry;
 R = [Ry Rz];             <span class="comment">% Ry = Rz</span>
@@ -95,7 +96,7 @@ toc;
 figure(1);
 imshow( [reshape(M1, [ny nz*nt]), sum(M1,3)/nt]);
 title(<span class="string">'Uniform density CPD sampling patterns from "genVDCPD.m" and sum'</span>);
-</pre><pre class="codeoutput">Elapsed time is 5.063664 seconds.
+</pre><pre class="codeoutput">Elapsed time is 2.068085 seconds.
 </pre><img vspace="5" hspace="5" src="demoCPDAll_01.png" alt=""> <h2>Example 2: Variable density random sampling by region-wise UD random<a name="7"></a></h2><pre class="codeinput">Ry = sqrt(ny*nz / sum(sum(F/nt)));
 Rz = Ry;
 R = [Ry Rz];             <span class="comment">% Ry = Rz</span>
@@ -110,7 +111,7 @@ toc;
 figure(2);
 imshow( [reshape(M1r, [ny nz*nt]), sum(M1r,3)/nt]);
 title(<span class="string">'Uniform density random sampling patterns from "genVDCPD.m" and sum'</span>);
-</pre><pre class="codeoutput">Elapsed time is 0.116374 seconds.
+</pre><pre class="codeoutput">Elapsed time is 0.080682 seconds.
 </pre><img vspace="5" hspace="5" src="demoCPDAll_02.png" alt=""> <h2>Example 3: Efficient uniform density CPD implementation<a name="9"></a></h2><p>Uniform density sampling is efficiently implemented with a random queue and requires little tuning.</p><pre class="codeinput">tic;
 C = 0.5;
 M2 = genUDCPD(nt,FOVRatio,F,shapeOpt) + repmat(Areg, [1 1 nt]);
@@ -125,17 +126,24 @@ Min. distance criterion: cross
 Max total samples = 4002
 Max # samples per phase: 1001 1001 1000 1000 
 -----------------------------------------------
-It:  1, # Samples:    3503, ky min. dist.: 2.2
+It:  1, # Samples:    3092, ky min. dist.: 1.4
 rand Q empty, breaking...
-It:  2, # Samples:    3503, ky min. dist.: 2.0
-It:  3, # Samples:    3988, ky min. dist.: 1.8
-It:  4, # Samples:    3988, ky min. dist.: 1.6
-It:  5, # Samples:    3988, ky min. dist.: 1.5
-It:  6, # Samples:    3988, ky min. dist.: 1.3
-It:  7, # Samples:    3988, ky min. dist.: 1.2
-It:  8, # Samples:    3988, ky min. dist.: 1.1
-It:  9, # Samples:    4002, ky min. dist.: 1.0
-Elapsed time is 0.169250 seconds.
+It:  2, # Samples:    3092, ky min. dist.: 1.3
+It:  3, # Samples:    3638, ky min. dist.: 1.1
+rand Q empty, breaking...
+It:  4, # Samples:    3638, ky min. dist.: 1.0
+rand Q empty, breaking...
+It:  5, # Samples:    3638, ky min. dist.: 0.9
+rand Q empty, breaking...
+It:  6, # Samples:    3638, ky min. dist.: 0.8
+It:  7, # Samples:    3998, ky min. dist.: 0.8
+It:  8, # Samples:    3998, ky min. dist.: 0.7
+It:  9, # Samples:    3998, ky min. dist.: 0.6
+It: 10, # Samples:    3998, ky min. dist.: 0.5
+It: 11, # Samples:    3998, ky min. dist.: 0.5
+It: 12, # Samples:    3998, ky min. dist.: 0.4
+It: 13, # Samples:    4002, ky min. dist.: 0.4
+Elapsed time is 0.087254 seconds.
 </pre><img vspace="5" hspace="5" src="demoCPDAll_03.png" alt=""> <h2>Example 4: Use of min. distance criterion for temporal phase combination<a name="11"></a></h2><p>Combining multiple phases should preserve the uniformity and incoherence of the Poisson-disc sample distribution. Here different min. distance criteria are compared. The 'cross' parameter generates an ellipse in k-space around any sample drawn and a line through the ellipse along the time axis, fixed at the sample k-space. Subsequent samples are drawn from the region of k-t space outside of the ellipse and line. Parameters 'ellipsoid', 'l1 ball', and 'cones' correspond to other shapes that better preserve the sampling properties after combining temporal phases, as shown in this example.</p><pre class="codeinput">figure(4);
 nt = 20;
 F = removeCorners(ones(100,100));
@@ -150,41 +158,39 @@ Min. distance criterion: cross
 Max total samples = 7825
 Max # samples per phase: 392 392 392 392 392 391 391 391 391 391 391 391 391 391 391 391 391 391 391 391 
 -----------------------------------------------
-It:  1, # Samples:    7110, ky min. dist.: 3.6
-rand Q empty, breaking...
-It:  2, # Samples:    7110, ky min. dist.: 3.2
-It:  3, # Samples:    7774, ky min. dist.: 2.9
-It:  4, # Samples:    7797, ky min. dist.: 2.6
-It:  5, # Samples:    7797, ky min. dist.: 2.3
-It:  6, # Samples:    7821, ky min. dist.: 2.1
-It:  7, # Samples:    7823, ky min. dist.: 1.9
-It:  8, # Samples:    7823, ky min. dist.: 1.7
-It:  9, # Samples:    7823, ky min. dist.: 1.5
-It: 10, # Samples:    7824, ky min. dist.: 1.4
-It: 11, # Samples:    7824, ky min. dist.: 1.2
-It: 12, # Samples:    7824, ky min. dist.: 1.1
-It: 13, # Samples:    7824, ky min. dist.: 1.0
-It: 14, # Samples:    7825, ky min. dist.: 0.9
+It:  1, # Samples:    6548, ky min. dist.: 2.3
+It:  2, # Samples:    7502, ky min. dist.: 2.0
+It:  3, # Samples:    7782, ky min. dist.: 1.8
+It:  4, # Samples:    7782, ky min. dist.: 1.6
+It:  5, # Samples:    7818, ky min. dist.: 1.5
+It:  6, # Samples:    7818, ky min. dist.: 1.3
+It:  7, # Samples:    7819, ky min. dist.: 1.2
+It:  8, # Samples:    7822, ky min. dist.: 1.1
+It:  9, # Samples:    7825, ky min. dist.: 1.0
 ------------- Uniform density CPD -------------
 FOVz/FOVy = 0.40, Dims: 100 100 20
 Min. distance criterion: cones
 Max total samples = 7825
 Max # samples per phase: 392 392 392 392 392 391 391 391 391 391 391 391 391 391 391 391 391 391 391 391 
 -----------------------------------------------
-It:  1, # Samples:    1147, ky min. dist.: 3.6
-It:  2, # Samples:    1492, ky min. dist.: 3.2
-It:  3, # Samples:    2110, ky min. dist.: 2.9
-It:  4, # Samples:    3147, ky min. dist.: 2.6
-It:  5, # Samples:    4145, ky min. dist.: 2.3
-It:  6, # Samples:    5558, ky min. dist.: 2.1
-It:  7, # Samples:    7146, ky min. dist.: 1.9
-It:  8, # Samples:    7788, ky min. dist.: 1.7
-It:  9, # Samples:    7788, ky min. dist.: 1.5
-It: 10, # Samples:    7817, ky min. dist.: 1.4
-It: 11, # Samples:    7817, ky min. dist.: 1.2
-It: 12, # Samples:    7817, ky min. dist.: 1.1
-It: 13, # Samples:    7817, ky min. dist.: 1.0
-It: 14, # Samples:    7825, ky min. dist.: 0.9
+It:  1, # Samples:    2327, ky min. dist.: 2.3
+It:  2, # Samples:    3215, ky min. dist.: 2.0
+It:  3, # Samples:    4390, ky min. dist.: 1.8
+It:  4, # Samples:    5149, ky min. dist.: 1.6
+It:  5, # Samples:    6698, ky min. dist.: 1.5
+It:  6, # Samples:    7742, ky min. dist.: 1.3
+It:  7, # Samples:    7796, ky min. dist.: 1.2
+It:  8, # Samples:    7805, ky min. dist.: 1.1
+It:  9, # Samples:    7822, ky min. dist.: 1.0
+It: 10, # Samples:    7822, ky min. dist.: 0.9
+It: 11, # Samples:    7822, ky min. dist.: 0.8
+It: 12, # Samples:    7822, ky min. dist.: 0.7
+It: 13, # Samples:    7822, ky min. dist.: 0.6
+It: 14, # Samples:    7822, ky min. dist.: 0.6
+It: 15, # Samples:    7822, ky min. dist.: 0.5
+It: 16, # Samples:    7822, ky min. dist.: 0.5
+It: 17, # Samples:    7822, ky min. dist.: 0.4
+It: 18, # Samples:    7825, ky min. dist.: 0.4
 </pre><img vspace="5" hspace="5" src="demoCPDAll_04.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2012b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% Complementary Poisson-Disc Sampling
