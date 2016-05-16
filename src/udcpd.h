@@ -1,3 +1,12 @@
+#ifndef UDCPD_H
+#define UDCPD_H 1
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
+
 #define KDIMS 2
 #define DIMS 3
 #define Y_DIM 0u
@@ -19,10 +28,10 @@ enum shape_opt {CROSS, L1_BALL, L2_BALL, CONES, PLANE_AND_CONES};
 #define DIST_KT 1
 
 struct pattern_s{
-    double *masks;
-    double *maskTot;
+    int *masks;
+    int *maskTot;
     long dims[DIMS];
-    long strides[DIMS];
+    long pat_strs[DIMS];
     long nptsKT;
     long nptsK;
     long *numSamplest;
@@ -55,13 +64,23 @@ struct samplingConstraints{
     long maxTotalSamples;
 
     /* defines k-space subdomain */
-    const double *feasiblePoints;
+    const int *feasiblePoints;
 };
-
-
-extern void genUDCPD(struct pattern_s *data, const double *feasiblePoints, const double FOVRatio, const double C, const long shapeOpt);
 
 extern struct pattern_s *
 init_data_str( const long *dims , const int isPeriodicInK);
 
+void genUDCPD(const long *dims, 
+              int *pattern,
+                    const int *feasiblePoints, 
+                    const double FOVRatio, 
+                    const double C, 
+                    const long shapeOpt,
+                    const double ky_mindist);
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif // UDCPD_H
 

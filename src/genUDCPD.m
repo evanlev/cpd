@@ -2,7 +2,7 @@
 % Generate uniform density complementary poisson-disc
 % or Poisson DISCO sampling
 % Usage:
-% M = genUDCPD(numMasks, alpha, feasiblePoints, shapeOpt, verbose, C) 
+% M = genUDCPD(numMasks, alpha, feasiblePoints, shapeOpt, verbose, C, mindist_scaling) 
 %  INPUTS:
 %   numMasks       = # regions (segments) over which to distribute samples
 %   alpha          = anisotropy factor FOVz / FOVy
@@ -20,7 +20,7 @@
 %   C              = dt_min / dky_min parameter to balance min distance in time and 
 %                    ky
 %                    Recommended: 1
-%   mindist_ky     = ky minimum distance
+%   mindist_scaling= scaling for min distance
 %                    Recommended: 0 for random, 1 for poisson-disc, or between 0 and 1
 %  OUTPUTS:
 %   M              = [ny nz nt] sampling pattern. sum(M,3)

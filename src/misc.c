@@ -83,6 +83,15 @@ sub2ind(const unsigned int D, const long *strides, const long *sub)
     return res;
 }
 
+/* mul2 */
+void mul2(long N, double *dst, const int *src1,  const double *src2)
+{
+    long i;
+    for( i =0 ; i < N ; i++ ){
+        dst[i] = src1[i]*src2[i];
+    }
+}
+
 /* mul */
 void mul(long N, double *dst, const double *src1,  const double *src2)
 {
@@ -127,6 +136,17 @@ void hardThreshold(const long N, double *x, const double tau){
 
 
 /* sum */
+int sumi(const long N, const int *src)
+{
+    int res = 0.0f;
+    long i;
+    for( i = 0 ; i < N ; i++ ){
+        res += src[i];
+    }
+    return res;
+}
+
+/* sum */
 double sumd(const long N, const double *src)
 {
     double res = 0.0f;
@@ -142,7 +162,6 @@ double sumd(const long N, const double *src)
 void
 ind2sub(const unsigned int D, const long *dims, long *sub, const long ind)
 {
-    int tmp_ind = ind;
     
     unsigned int i;
     if( D == 1 ){
@@ -163,7 +182,7 @@ void* xmalloc(size_t s)
 	void* p = malloc(s);
 
 	if (NULL == p)
-        mexErrMsgTxt("Could not allocate memory");
+        my_assert(0, "Could not allocate memory");
 
 	return p;
 }
