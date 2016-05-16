@@ -18,10 +18,14 @@ void genVDCPD(const long dims[], int *pattern,
               const int *feasiblePointsD, const float FOVRatio, 
               const float C, const int shapeOpt, const float mindist_scaling, 
               const float vd_exp, const int maxR){
+    
+    /* Minimum size of a region */
+    const int min_region_dim = 2; 
+    const int corner_cut = 1;
+    
     my_assert(FOVRatio > 0, "FOVRatio <= 0");
     my_assert(maxR > 0, "maxR <= 0");
     my_assert(vd_exp > 0, "vd_exp <= 0");
-    int min_region_dim = 2; // Minimimum dimension of a region
     int skip_reg = (int) ceilf((double) min_region_dim / ((double) MIN(dims[0], dims[1]) / (double) maxR));
     debug_printf("---------- Variable Density CPD -------- \n");
     debug_printf("Rmax:\t%d\n", maxR);
@@ -35,14 +39,12 @@ void genVDCPD(const long dims[], int *pattern,
     long f_size = dims[0]*dims[1];
     
     /* Clear out the pattern */
-    memset(pattern, 0, sizeof(long)*f_size*dims[T_DIM]);
-    
+    memset(pattern, 0, sizeof(int)*f_size*dims[T_DIM]);
+     
     double alpha_sq = pow( (double) dims[Y_DIM] / (double) dims[Z_DIM], 2);
-    int *is_sampled = (int *) xmalloc(dims[Y_DIM]*dims[Z_DIM]*sizeof(int));
     double * kr = (double *) xmalloc(dims[Y_DIM]*dims[Z_DIM]*sizeof(double));
     int *region     = (int *) xmalloc(dims[Y_DIM]*dims[Z_DIM]*sizeof(int));
     debug_printf("Region assignments...\n");
-    const int corner_cut = 1;
 
     for( int iky = 0; iky < dims[Y_DIM] ; iky++ )
     for( int ikz = 0; ikz < dims[Z_DIM] ; ikz++ ){
@@ -85,7 +87,6 @@ void genVDCPD(const long dims[], int *pattern,
     debug_printf("Cleanup...\n");
     free(feasiblePointsReg);
     free(kr); 
-    free(is_sampled);
     free(region);
 }
 
