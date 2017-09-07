@@ -1,4 +1,4 @@
-#Complementary Poisson-disc 3D Cartesian k-Space Sampling
+# Complementary Poisson-disc 3D Cartesian k-Space Sampling
 
 DISCLAIMER: This code is distributed freely as an example for the work
 published in Magnetic Resonance in Medicine. This is research done at
@@ -13,7 +13,7 @@ Demos for MATLAB functions are included in html/
 
 More information can be found in the following references:
 
-##References
+## References
 1) E Levine, B Hargreaves, B Daniel, S Vasanawala, and M Saranathan. "3D Cartesian MRI with Compressed Sensing and Variable View Sharing Using Complementary Poisson-disc Sampling"  Magnic Resonance in Medicine 2016
 
 2) E Levine, M Saranathan, and B Hargreaves. “Complementary Poisson-Disc Sampling” Proc
