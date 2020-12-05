@@ -15,7 +15,7 @@ extern "C" {
 
 
 void genVDCPD(const long dims[], int *pattern, 
-              const int *feasiblePointsD, const float FOVRatio, 
+              const int *feasiblePoints, const float FOVRatio, 
               const float C, const int shapeOpt, const float mindist_scaling, 
               const float vd_exp, const int maxR){
     
@@ -28,6 +28,7 @@ void genVDCPD(const long dims[], int *pattern,
     my_assert(vd_exp > 0, "vd_exp <= 0");
     int skip_reg = (int) ceilf((double) min_region_dim / ((double) MIN(dims[0], dims[1]) / (double) maxR));
     debug_printf("---------- Variable Density CPD -------- \n");
+    debug_printf("Dims: %l x %l x %l\n", dims[0], dims[1], dims[2]);
     debug_printf("Rmax:\t%d\n", maxR);
     debug_printf("FOVRatio:\t%f\n", FOVRatio);
     debug_printf("Density falloff:\t1/%f\n", vd_exp);
@@ -62,7 +63,7 @@ void genVDCPD(const long dims[], int *pattern,
     for( int reg = 1 ; reg <= maxR ; reg++ ){
         debug_printf("%d/%d\n", reg, maxR);
         int *masks_reg = xmalloc(f_size*reg*sizeof(int));
-        memcpy(feasiblePointsReg, feasiblePointsD, f_size*sizeof(int));
+        memcpy(feasiblePointsReg, feasiblePoints, f_size*sizeof(int));
         /*
         */
         for( long ik = 0 ; ik < f_size ; ik++ ){

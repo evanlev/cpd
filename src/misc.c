@@ -31,19 +31,21 @@ void debug_printf(const char *fmt, ... )
 #ifdef MEX_COMPILE_FLAG
         mexPrintf(buff);
 #else
-        fprintf(stdout, buff);
+        fprintf(stdout, "%s", buff);
 #endif
         va_end(ap);
     }
 }
 
 
-void my_assert( int exp, const char *err){
-    if( !exp ){
+void my_assert(int exp, const char *err)
+{
+    if (!exp)
+    {
 #ifdef MEX_COMPILE_FLAG
         mexErrMsgTxt(err);
 #else
-        fprintf(stderr, err);
+        fprintf(stderr, "%s", err);
         exit(0);
 #endif
     }
@@ -227,7 +229,7 @@ int in_bounds( const long D, long *sample, const long *dims ){
 }
 
 /* 1 if C[0 .. N-1] is all zeros */
-int arr_is_zero( const unsigned long N, const double *C)
+int arr_is_zero(const unsigned long N, const double *C)
 {
     unsigned long i;
     int res = 1;
@@ -238,6 +240,28 @@ int arr_is_zero( const unsigned long N, const double *C)
         }
     }
     return res;
+}
+
+int all_positive(size_t N, const long *C)
+{
+    size_t i;
+    for (i = 0; i < N; i++)
+    {
+        if (C[i] <= 0)
+        {
+            return 0;
+        }
+    }
+    return 1;
+}
+
+void copy_array(size_t N, const double *src, int *dst)
+{
+    size_t i;
+    for (i = 0; i < N; i++)
+    {
+        dst[i] = (int)src[i];
+    }
 }
 
 /* mod function */

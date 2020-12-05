@@ -50,7 +50,7 @@ function M = genUDCPD(numMasks, alph, feasiblePoints, shapeOpt, verbose, C, mind
         error(['Please provide a min. distance shape: ''cross'', ''ellipsoid'', ''l1 ball'', or ''cones''']);
     end
 
-    M = genUDCPDMex(numMasks, alph, int32(feasiblePoints), shapeOpt, verbose, C, mindist_scaling);
+    M = genUDCPDMex(numMasks, alph, double(feasiblePoints), shapeOpt, verbose, C, mindist_scaling);
     M = double(M);
 end
 

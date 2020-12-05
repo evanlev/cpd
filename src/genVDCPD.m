@@ -52,7 +52,7 @@ function M = genVDCPD(numMasks, Rmax, vd_exp, alph, feasiblePoints, shapeOpt, ve
         error(['Please provide a min. distance shape: ''cross'', ''ellipsoid'', ''l1 ball'', or ''cones''']);
     end
 
-    M = genVDCPDMex(numMasks, alph, int32(feasiblePoints), shapeOpt, verbose, C, mindist_scaling, Rmax, vd_exp);
+    M = genVDCPDMex(numMasks, alph, double(feasiblePoints), shapeOpt, verbose, C, mindist_scaling, Rmax, vd_exp);
     M = double(M);
 end
 

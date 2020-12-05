@@ -1,8 +1,10 @@
+#ifndef MISC_H
+#define MISC_H 1
 
 extern int verbose;
 
 void debug_printf(const char *fmt, ... );
-void my_assert( int exp, const char *err);
+void my_assert(int exp, const char *err);
 void md_calc_strides(unsigned int D, long str[], const long dim[], size_t size);
 long md_calc_size(const unsigned int D, const long *dims);
 long sub2ind(const unsigned int D, const long *strides, const long *sub);
@@ -19,8 +21,11 @@ void smpy(long N, double beta, double *dst, const double *src);
 void* xmalloc(size_t s);
 
 void rpermute(const long n, long *a);
-void randperm( const long n, long perm[]);
-int in_bounds( const long D, long *sample, const long *dims );
-int arr_is_zero( const unsigned long N, const double *C);
-long mod( const long t, const long nt);
+void randperm(const long n, long perm[]);
+int in_bounds(const long D, long *sample, const long *dims );
+int arr_is_zero(const unsigned long N, const double *C);
+int all_positive(size_t N, const long *C);
+void copy_array(size_t N, const double *src, int* dst);
+long mod(const long t, const long nt);
 
+#endif

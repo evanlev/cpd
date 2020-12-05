@@ -20,8 +20,8 @@
 % central region and annular region with 2x1 regular under-sampling.
 %%
 clear, close all;
-cd('src');
-makeMex;
+cd('./src');
+% makeMex;
 cd('..');
 addpath('utils/');
 addpath('src/');
@@ -45,8 +45,11 @@ shapeOpt = 'cross';      % Union of a line along k = 0 and an ellipse at t = 0
 distRelaxationOpt = 'k'; % Only relax k-space min. distance constraint
 vd_exp = 1;              % 1/kr^1 density
 Rmax = 22;               % reduction factor at kr = kmax
+verbose = 0;
+C = 1;
+
 tic;
-M1 = genVDCPD(nt,Rmax,vd_exp,FOVRatio,F,shapeOpt,0,1);
+M1 = genVDCPD(nt,Rmax,vd_exp,FOVRatio,F,shapeOpt,verbose,C);
 toc;
 
 figure(1);
